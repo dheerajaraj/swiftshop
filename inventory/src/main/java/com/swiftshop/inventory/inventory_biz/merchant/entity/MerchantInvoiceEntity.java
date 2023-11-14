@@ -2,7 +2,7 @@ package com.swiftshop.inventory.inventory_biz.merchant.entity;
 
 import com.swiftshop.inventory.inventory_biz.common.valueObj.MerchantId;
 import com.swiftshop.inventory.inventory_biz.common.valueObj.ProductId;
-import com.swiftshop.inventory.inventory_biz.merchant.valueObj.MerchantInvoiceId;
+import com.swiftshop.inventory.inventory_biz.merchant.entity.valueObj.MerchantInvoiceId;
 import lombok.Data;
 
 import java.util.Date;
