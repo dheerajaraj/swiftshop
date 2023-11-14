@@ -1,4 +1,4 @@
-package com.swiftshop.inventory.inventory_biz.inventory.reservation;
+package com.swiftshop.inventory.inventory_biz.inventory.valueobj.reservation;
 
 import lombok.Data;
 
