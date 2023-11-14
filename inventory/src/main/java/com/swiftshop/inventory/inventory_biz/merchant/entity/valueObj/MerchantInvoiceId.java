@@ -1,4 +1,4 @@
-package com.swiftshop.inventory.inventory_biz.merchant.valueObj;
+package com.swiftshop.inventory.inventory_biz.merchant.entity.valueObj;
 
 import lombok.Data;
 

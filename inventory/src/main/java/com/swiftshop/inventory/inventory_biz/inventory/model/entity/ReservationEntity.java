@@ -1,8 +1,8 @@
-package com.swiftshop.inventory.inventory_biz.inventory.entity;
+package com.swiftshop.inventory.inventory_biz.inventory.model.entity;
 
 import com.swiftshop.inventory.inventory_biz.common.valueObj.ProductId;
 import com.swiftshop.inventory.inventory_biz.common.valueObj.UserId;
-import com.swiftshop.inventory.inventory_biz.inventory.valueobj.reservation.ReservationId;
+import com.swiftshop.inventory.inventory_biz.inventory.model.entity.valueobj.reservation.ReservationId;
 import lombok.Data;
 
 import java.util.Date;

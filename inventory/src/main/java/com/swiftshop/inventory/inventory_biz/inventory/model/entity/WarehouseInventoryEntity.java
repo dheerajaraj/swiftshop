@@ -1,8 +1,8 @@
-package com.swiftshop.inventory.inventory_biz.inventory.entity;
+package com.swiftshop.inventory.inventory_biz.inventory.model.entity;
 
 import com.swiftshop.inventory.inventory_biz.common.valueObj.MerchantId;
 import com.swiftshop.inventory.inventory_biz.common.valueObj.ProductId;
-import com.swiftshop.inventory.inventory_biz.inventory.valueobj.warehouseInventory.WarehouseInventoryId;
+import com.swiftshop.inventory.inventory_biz.inventory.model.entity.valueobj.warehouseInventory.WarehouseInventoryId;
 import lombok.Data;
 
 import java.util.Date;
