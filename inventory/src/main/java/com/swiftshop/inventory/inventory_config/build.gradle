@@ -1,4 +1,4 @@
-package com.swiftshop.inventory.inventory_api
+package com.swiftshop.inventory.inventory_config
 
 plugins {
     id 'java'
@@ -26,15 +26,12 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
-    implementation 'org.springframework.session:spring-session-core'
-    implementation resolveDependency(':inventory_biz:')
-    implementation resolveDependency(':inventory_config:')
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }
