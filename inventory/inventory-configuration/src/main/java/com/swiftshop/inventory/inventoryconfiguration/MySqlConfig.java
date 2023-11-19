@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Component
-@MapperScan(basePackages = "com.shopee.idata.dataquality.mapper",
+@MapperScan(basePackages = "com.swiftshop.inventory.mapper",
         sqlSessionTemplateRef = "mysqlSqlSessionTemplate")
 @EnableTransactionManagement
 public class MySqlConfig {
