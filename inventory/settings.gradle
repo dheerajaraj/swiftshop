@@ -6,6 +6,12 @@ pluginManagement {
 	}
 }
 rootProject.name = 'inventory'
-include ':inventory-configuration'
+include 'inventory-biz'
+include 'inventory-configuration'
+include 'inventory-repository'
+include 'inventory-dependence'
+include 'inventory-common'
+include 'inventory-api'
+
 
 

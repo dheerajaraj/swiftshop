@@ -1,6 +1,6 @@
 package com.swiftshop.inventory.inventory_api.application;
 
-import com.swiftshop.inventory.inventory_biz.order.model.OrderCreatedEvent;
+import com.inventory.inventorybiz.order.model.OrderCreatedEvent;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
