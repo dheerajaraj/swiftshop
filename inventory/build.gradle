@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+	implementation project(':inventory-api')
 	implementation project(':inventory-biz')
 	implementation project(':inventory-common')
 	//implementation 'org.springframework.boot:spring-boot-starter-data-rest'

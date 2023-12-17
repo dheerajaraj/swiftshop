@@ -1,7 +1,6 @@
 package com.inventory.inventorybiz.merchant.entity;
 
 import com.inventory.inventorybiz.valueObj.*;
-import com.swiftshop.inventory.inventory_biz.common.valueObj.*;
 import lombok.Data;
 
 import java.util.Date;
