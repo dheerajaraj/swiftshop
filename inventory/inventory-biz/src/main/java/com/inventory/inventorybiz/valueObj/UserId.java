@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class UserId {
-    private String id;
+    private Long id;
 }

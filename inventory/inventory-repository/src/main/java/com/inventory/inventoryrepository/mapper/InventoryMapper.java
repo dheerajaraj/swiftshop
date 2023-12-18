@@ -4,6 +4,7 @@ import com.inventory.inventoryrepository.dto.InventoryDto;
 import com.inventory.inventoryrepository.mapper.impl.InventorySqlUtil;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 @Mapper
@@ -14,4 +15,7 @@ public interface InventoryMapper {
 
     @UpdateProvider(type= InventorySqlUtil.class, method="update")
     int update(InventoryDto dto);
+
+    @SelectProvider(type= InventorySqlUtil.class, method="selectByInventoryId")
+    InventoryDto selectByInventoryId(long id);
 }
