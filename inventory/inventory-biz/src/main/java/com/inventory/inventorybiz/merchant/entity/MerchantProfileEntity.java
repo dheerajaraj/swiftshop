@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class MerchantProfileEntity {
-    private MerchantId id;
+    private Long id;
     private String companyName;
     private Date joinedDate;
     private EmailAddress emailAddress;

@@ -2,6 +2,7 @@ package com.inventory.inventoryrepository.mapper.impl;
 
 import com.inventory.inventoryrepository.dto.InventoryDto;
 import org.apache.ibatis.jdbc.SQL;
+import org.apache.ibatis.jdbc.SqlBuilder;
 
 public class InventorySqlUtil {
 
@@ -15,18 +16,20 @@ public class InventorySqlUtil {
   }
 
   public String update(InventoryDto dto) {
-    return new SQL() {{
+    SQL sqlBuilder = new SQL() {{
       UPDATE("inventory_tab");
-      if (dto.getStock() != null) {
-        SET("stock = #{dto.stock}");
-      }
-      if (dto.getDateLastAdded() != null) {
-        SET("date_last_added = #{dto.dateLastAdded}");
-      }
-      if (dto.getLowStockThreshold() != null) {
-        SET("low_stock_threshold = #{dto.lowStockThreshold}");
-      }
-    }}.toString();
+    }};
+    if (dto.getStock() != null) {
+      sqlBuilder.SET("stock = #{dto.stock}");
+    }
+    if (dto.getDateLastAdded() != null) {
+      sqlBuilder.SET("date_last_added = #{dto.dateLastAdded}");
+    }
+    if (dto.getLowStockThreshold() != null) {
+      sqlBuilder.SET("low_stock_threshold = #{dto.lowStockThreshold}");
+    }
+    sqlBuilder.WHERE("id = #{dto.id}");
+    return sqlBuilder.toString();
   }
 
   public String selectByInventoryId(long id) {

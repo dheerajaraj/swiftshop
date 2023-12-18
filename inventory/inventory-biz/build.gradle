@@ -16,10 +16,10 @@ repositories {
 }
 
 dependencies {
-    implementation project(':inventory-configuration')
-    implementation project(':inventory-repository')
-    implementation project(':inventory-dependence')
     implementation project(':inventory-common')
+    implementation project(':inventory-configuration')
+    implementation project(':inventory-dependence')
+    implementation project(':inventory-repository')
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

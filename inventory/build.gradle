@@ -24,9 +24,9 @@ repositories {
 }
 
 dependencies {
-	implementation project(':inventory-api')
-	implementation project(':inventory-biz')
 	implementation project(':inventory-common')
+	implementation project(':inventory-biz')
+	implementation project(':inventory-api')
 	//implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	//implementation 'org.springframework.boot:spring-boot-starter-jersey'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'

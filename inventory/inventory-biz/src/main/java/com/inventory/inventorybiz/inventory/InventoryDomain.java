@@ -9,18 +9,26 @@ import com.inventory.inventoryrepository.mapper.InventoryMapper;
 import com.inventory.inventoryrepository.mapper.ReservationMapper;
 import java.io.InvalidObjectException;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Data
+@Builder
 @Component
-@AllArgsConstructor
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class InventoryDomain {
 
   private final InventoryMapper inventoryMapper;
   private final ReservationMapper reservationMapper;
+
+  @Autowired
+  public InventoryDomain(InventoryMapper inventoryMapper, ReservationMapper reservationMapper) {
+    this.inventoryMapper = inventoryMapper;
+    this.reservationMapper = reservationMapper;
+  }
 
   /**
    * 1. Update inventory tab with the correct quantity 2. Update reservation tab if necessary by
@@ -30,15 +38,18 @@ public class InventoryDomain {
   public void handleOrderCreated(WarehouseInventoryEntity entity, UserId userId)
       throws InvalidObjectException {
     InventoryDto dto = this.inventoryMapper.selectByInventoryId(
-        entity.getWarehouseInventoryId().getId());
-    ReservationDto reservationDto = reservationMapper.selectUnPaidReservedItemsByUser(
-        entity.getProductId().getId(), entity.getMerchantId().getId(), userId.getId());
+        entity.getWarehouseInventoryId());
     if (dto == null) {
       throw new InvalidObjectException(
           String.format("Inventory item does not exist for the merchantId: %d and productId: %d",
-              entity.getMerchantId().getId(), entity.getProductId().getId()));
+              entity.getMerchantId(), entity.getProductId()));
     }
+    WarehouseInventoryEntity retrievedInventory = WarehouseInventoryEntity.dto2Domain(dto);
+    retrievedInventory.getStock().validateAndUpdateStocksToRemove(entity.getStock());
     this.inventoryMapper.update(WarehouseInventoryEntity.domain2Dto(entity));
+
+    ReservationDto reservationDto = reservationMapper.selectUnPaidReservedItemsByUser(
+        entity.getProductId(), entity.getMerchantId(), userId.getId());
     if (reservationDto != null) {
       this.reservationMapper.update(
           ReservationDto.builder().id(reservationDto.getId())
