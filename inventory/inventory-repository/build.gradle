@@ -7,6 +7,14 @@ plugins {
 group = 'com.inventory'
 version = '0.0.1-SNAPSHOT'
 
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
 java {
     sourceCompatibility = '17'
 }
@@ -17,8 +25,9 @@ repositories {
 
 dependencies {
     api 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
-    implementation 'org.springframework.boot:spring-boot-starter'
     implementation project(':inventory-common')
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

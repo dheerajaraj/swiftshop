@@ -1,14 +1,14 @@
 package com.inventory.inventorybiz.order.model;
 
+import lombok.Data;
 import lombok.NonNull;
 import lombok.Value;
 
-@Value
+@Data
 public class OrderCreatedEvent extends OrderEvent {
 
-    @NonNull int quantity;
-    @NonNull String paymentStatus;
-    @NonNull String productCategory;
-
+    int quantity;
+    String paymentStatus;
+    String productCategory;
 
 }
