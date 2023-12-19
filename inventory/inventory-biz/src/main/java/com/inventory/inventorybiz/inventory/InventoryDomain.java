@@ -11,7 +11,6 @@ import java.io.InvalidObjectException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +45,7 @@ public class InventoryDomain {
     }
     WarehouseInventoryEntity retrievedInventory = WarehouseInventoryEntity.dto2Domain(dto);
     retrievedInventory.getStock().validateAndUpdateStocksToRemove(entity.getStock());
-    this.inventoryMapper.update(WarehouseInventoryEntity.domain2Dto(entity));
+    this.inventoryMapper.update(WarehouseInventoryEntity.domain2Dto(retrievedInventory));
 
     ReservationDto reservationDto = reservationMapper.selectUnPaidReservedItemsByUser(
         entity.getProductId(), entity.getMerchantId(), userId.getId());
