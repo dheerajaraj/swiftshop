@@ -1,40 +1,47 @@
 package com.inventory.inventorybiz.inventory;
 
+import com.inventory.inventorybiz.events.InventoryUpdatedWithNewMerchantMetricsEvent;
+import com.inventory.inventorybiz.events.InventoryUpdatedWithNewProductEvent;
+import com.inventory.inventorybiz.events.InventoryUpdatedWithNewUserMetricsEvent;
 import com.inventory.inventorybiz.inventory.model.entity.ReservationEntity.ReservationActionEnum;
 import com.inventory.inventorybiz.inventory.model.entity.WarehouseInventoryEntity;
+import com.inventory.inventorybiz.merchant.entity.MerchantInvoiceEntity.PaymentStatusEnum;
+import com.inventory.inventorybiz.valueObj.Rating;
 import com.inventory.inventorybiz.valueObj.UserId;
 import com.inventory.inventoryrepository.dto.InventoryDto;
 import com.inventory.inventoryrepository.dto.ReservationDto;
 import com.inventory.inventoryrepository.mapper.InventoryMapper;
 import com.inventory.inventoryrepository.mapper.ReservationMapper;
 import java.io.InvalidObjectException;
-import lombok.AllArgsConstructor;
+import java.sql.Date;
+import java.time.Instant;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Data
 @Builder
 @Component
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class InventoryDomain {
 
   private final InventoryMapper inventoryMapper;
   private final ReservationMapper reservationMapper;
-
-  @Autowired
-  public InventoryDomain(InventoryMapper inventoryMapper, ReservationMapper reservationMapper) {
-    this.inventoryMapper = inventoryMapper;
-    this.reservationMapper = reservationMapper;
-  }
+  private final ApplicationEventPublisher applicationEventPublisher;
+  private final ApplicationEventMulticaster applicationEventMulticaster;
 
   /**
    * 1. Update inventory tab with the correct quantity 2. Update reservation tab if necessary by
    * marking it as delete.
    */
-  @Transactional(rollbackFor = Exception.class)
-  public void handleOrderCreated(WarehouseInventoryEntity entity, UserId userId)
+  @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
+  public void handleOrderCreated(WarehouseInventoryEntity entity, UserId userId, Rating rating)
       throws InvalidObjectException {
     InventoryDto dto = this.inventoryMapper.selectByInventoryId(
         entity.getWarehouseInventoryId());
@@ -54,6 +61,19 @@ public class InventoryDomain {
           ReservationDto.builder().id(reservationDto.getId())
               .action(ReservationActionEnum.PAID.name()).expired(Boolean.TRUE).build());
     }
+
+    this.applicationEventPublisher.publishEvent(
+        InventoryUpdatedWithNewProductEvent.builder().productId(entity.getProductId())
+            .merchantId(entity.getMerchantId())
+            .invoiceDate(new Date(Instant.now().getEpochSecond()))
+            .paymentStatus(PaymentStatusEnum.PAID.name()).quantity(entity.getStock().getQuantity())
+            .build());
+    InventoryUpdatedWithNewMerchantMetricsEvent merchantMetricsEvent = new InventoryUpdatedWithNewMerchantMetricsEvent(
+        this, entity.getMerchantId(), rating.getRating());
+    InventoryUpdatedWithNewUserMetricsEvent userMetricsEvent = new InventoryUpdatedWithNewUserMetricsEvent(
+        this, entity.getMerchantId(), entity.getProductId(), rating.getRating());
+    this.applicationEventMulticaster.multicastEvent(merchantMetricsEvent);
+    this.applicationEventMulticaster.multicastEvent(userMetricsEvent);
   }
 
   public void addNewProduct(WarehouseInventoryEntity entity) {
