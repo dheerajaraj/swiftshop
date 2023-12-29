@@ -1,8 +1,7 @@
 package com.inventory.inventorybiz.inventory;
 
-import com.inventory.inventorybiz.events.InventoryUpdatedWithNewMerchantMetricsEvent;
 import com.inventory.inventorybiz.events.InventoryUpdatedWithNewProductEvent;
-import com.inventory.inventorybiz.events.InventoryUpdatedWithNewUserMetricsEvent;
+import com.inventory.inventorybiz.events.InventoryUpdatedWithNewMetricsEvent;
 import com.inventory.inventorybiz.inventory.model.entity.ReservationEntity.ReservationActionEnum;
 import com.inventory.inventorybiz.inventory.model.entity.WarehouseInventoryEntity;
 import com.inventory.inventorybiz.merchant.entity.MerchantInvoiceEntity.PaymentStatusEnum;
@@ -68,12 +67,9 @@ public class InventoryDomain {
             .invoiceDate(new Date(Instant.now().getEpochSecond()))
             .paymentStatus(PaymentStatusEnum.PAID.name()).quantity(entity.getStock().getQuantity())
             .build());
-    InventoryUpdatedWithNewMerchantMetricsEvent merchantMetricsEvent = new InventoryUpdatedWithNewMerchantMetricsEvent(
-        this, entity.getMerchantId(), rating.getRating());
-    InventoryUpdatedWithNewUserMetricsEvent userMetricsEvent = new InventoryUpdatedWithNewUserMetricsEvent(
+    InventoryUpdatedWithNewMetricsEvent metricsEvent = new InventoryUpdatedWithNewMetricsEvent(
         this, entity.getMerchantId(), entity.getProductId(), rating.getRating());
-    this.applicationEventMulticaster.multicastEvent(merchantMetricsEvent);
-    this.applicationEventMulticaster.multicastEvent(userMetricsEvent);
+    this.applicationEventMulticaster.multicastEvent(metricsEvent);
   }
 
   public void addNewProduct(WarehouseInventoryEntity entity) {
