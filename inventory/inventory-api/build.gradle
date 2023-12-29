@@ -7,6 +7,14 @@ plugins {
 group = 'com.inventory'
 version = '0.0.1-SNAPSHOT'
 
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
 java {
 	sourceCompatibility = '17'
 }
@@ -20,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation project(':inventory-biz')
 	implementation project(':inventory-common')
+	annotationProcessor 'org.projectlombok:lombok'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
