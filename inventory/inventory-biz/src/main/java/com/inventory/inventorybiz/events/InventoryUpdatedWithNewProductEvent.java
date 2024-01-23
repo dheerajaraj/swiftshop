@@ -11,6 +11,7 @@ import lombok.Data;
 public class InventoryUpdatedWithNewProductEvent {
   private Long productId;
   private Long merchantId;
+  private Long orderId;
   private Integer quantity;
   private Date invoiceDate;
   private String paymentStatus;

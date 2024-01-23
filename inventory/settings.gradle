@@ -12,6 +12,9 @@ include 'inventory-repository'
 include 'inventory-dependence'
 include 'inventory-biz'
 include 'inventory-api'
+include ':base-domain'
+project(':base-domain').projectDir = new File("/$rootDir/../base-domain")
+
 
 
 

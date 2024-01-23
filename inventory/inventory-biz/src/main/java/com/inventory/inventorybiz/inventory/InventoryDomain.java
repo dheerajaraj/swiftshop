@@ -40,7 +40,8 @@ public class InventoryDomain {
    * marking it as delete.
    */
   @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-  public void handleOrderCreated(WarehouseInventoryEntity entity, UserId userId, Rating rating)
+  public void handleOrderCreated(WarehouseInventoryEntity entity, UserId userId, Rating rating,
+      Long orderId)
       throws InvalidObjectException {
     InventoryDto dto = this.inventoryMapper.selectByInventoryId(
         entity.getWarehouseInventoryId());
@@ -63,7 +64,7 @@ public class InventoryDomain {
 
     this.applicationEventPublisher.publishEvent(
         InventoryUpdatedWithNewProductEvent.builder().productId(entity.getProductId())
-            .merchantId(entity.getMerchantId())
+            .merchantId(entity.getMerchantId()).orderId(orderId)
             .invoiceDate(new Date(Instant.now().getEpochSecond()))
             .paymentStatus(PaymentStatusEnum.PAID.name()).quantity(entity.getStock().getQuantity())
             .build());

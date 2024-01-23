@@ -20,6 +20,7 @@ public class MerchantDomain {
   public void handleOrderCreated(InventoryUpdatedWithNewProductEvent event) {
     this.merchantInvoiceMapper.insert(MerchantInvoiceDto.builder().merchantId(event.getMerchantId())
         .productId(event.getProductId()).invoiceDate(event.getInvoiceDate())
+        .orderId(event.getOrderId())
         .paymentStatus(event.getPaymentStatus()).quantity(event.getQuantity()).build());
   }
 }
