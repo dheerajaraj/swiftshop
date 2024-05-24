@@ -1,4 +1,4 @@
-package com.inventory.inventorybiz.inventory.model.entity;
+package com.inventory.inventorybiz.reservation.entity;
 
 import com.inventory.inventoryrepository.dto.ReservationDto;
 import lombok.Data;

@@ -15,6 +15,7 @@ public class MerchantInvoiceEntity {
   private Long merchantInvoiceId;
   private Long productId;
   private Long merchantId;
+  private Long orderId;
   private Date invoiceDate;
   private PaymentStatusEnum paymentStatus;
   private String productCategory;
@@ -30,6 +31,7 @@ public class MerchantInvoiceEntity {
     return MerchantInvoiceDto.builder().productId(entity.getProductId())
         .merchantId(entity.getMerchantId()).invoiceDate(entity.getInvoiceDate())
         .paymentStatus(entity.getPaymentStatus().name())
+        .orderId(entity.getOrderId())
         .quantity(entity.getQuantity().getQuantity())
         .build();
   }

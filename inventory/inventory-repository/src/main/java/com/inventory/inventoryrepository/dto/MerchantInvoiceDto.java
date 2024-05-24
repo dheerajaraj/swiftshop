@@ -11,6 +11,7 @@ public class MerchantInvoiceDto {
   private Long merchantInvoiceId;
   private Long productId;
   private Long merchantId;
+  private Long orderId;
   private Date invoiceDate;
   private String paymentStatus;
   private Integer quantity;

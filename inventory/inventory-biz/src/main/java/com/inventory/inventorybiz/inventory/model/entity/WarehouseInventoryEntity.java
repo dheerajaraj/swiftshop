@@ -2,6 +2,7 @@ package com.inventory.inventorybiz.inventory.model.entity;
 
 import com.inventory.inventorybiz.inventory.model.entity.valueobj.reservation.Stock;
 import com.inventory.inventorybiz.inventory.model.entity.valueobj.reservation.StockThreshold;
+import com.inventory.inventorybiz.order.model.OrderCreatedEvent;
 import com.inventory.inventoryrepository.dto.InventoryDto;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +16,7 @@ public class WarehouseInventoryEntity {
   private Long warehouseInventoryId;
   private Long productId;
   private Long merchantId;
+  private Long shopperId;
   private Stock stock;
   private Date dateLastAdded;
   private StockThreshold stockThreshold;

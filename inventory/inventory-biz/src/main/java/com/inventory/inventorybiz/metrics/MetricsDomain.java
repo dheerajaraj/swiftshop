@@ -1,14 +1,12 @@
 package com.inventory.inventorybiz.metrics;
 
-import com.inventory.inventorybiz.events.InventoryUpdatedWithNewMetricsEvent;
+import com.inventory.inventorybiz.domainevents.InventoryUpdatedWithNewMetricsEvent;
 import com.inventory.inventorybiz.metrics.entity.MerchantMetricsEntity;
 import com.inventory.inventorybiz.metrics.entity.ProductMetricsEntity;
-import com.inventory.inventorybiz.valueObj.Rating;
 import com.inventory.inventoryrepository.dto.MerchantMetricDto;
 import com.inventory.inventoryrepository.dto.ProductMetricDto;
 import com.inventory.inventoryrepository.mapper.MerchantMetricsMapper;
 import com.inventory.inventoryrepository.mapper.ProductMetricsMapper;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
