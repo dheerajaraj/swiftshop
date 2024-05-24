@@ -1,4 +1,4 @@
-package com.inventory.inventorybiz.events;
+package com.inventory.inventorybiz.domainevents;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationEvent;
 @EqualsAndHashCode(callSuper = true)
 public class InventoryUpdatedWithNewMetricsEvent extends ApplicationEvent {
 
+  private Object source;
   private Long merchantId;
   private Long productId;
   private Float productRating;

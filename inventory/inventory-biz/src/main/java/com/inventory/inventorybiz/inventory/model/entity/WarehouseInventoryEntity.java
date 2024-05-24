@@ -16,6 +16,7 @@ public class WarehouseInventoryEntity {
   private Long warehouseInventoryId;
   private Long productId;
   private Long merchantId;
+  private Long shopperId;
   private Stock stock;
   private Date dateLastAdded;
   private StockThreshold stockThreshold;

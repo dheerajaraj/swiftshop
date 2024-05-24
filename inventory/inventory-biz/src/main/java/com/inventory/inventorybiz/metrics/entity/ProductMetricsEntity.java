@@ -1,6 +1,6 @@
 package com.inventory.inventorybiz.metrics.entity;
 
-import com.inventory.inventorybiz.events.InventoryUpdatedWithNewMetricsEvent;
+import com.inventory.inventorybiz.domainevents.InventoryUpdatedWithNewMetricsEvent;
 import com.inventory.inventorybiz.valueObj.Rating;
 import com.inventory.inventoryrepository.dto.ProductMetricDto;
 import java.sql.Date;

@@ -7,13 +7,14 @@ import lombok.Data;
 @Data
 @Builder
 public class OrderCreatedEvent {
+  private Long orderId;
   private Long productId;
   private Long merchantId;
-  private Long userId;
-  private Long orderId;
+  private Long shopperId;
+  private Integer orderQuantity;
+  private String action;
+  private String status;
   private Float rating;
-  private Integer stockQuantity;
   private Date dateLastAdded;
   private Float lowStockThreshold;
-
 }
